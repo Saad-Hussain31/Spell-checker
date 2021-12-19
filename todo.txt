@@ -1,0 +1,12 @@
+editor --> spell checker
+
+given input -> set(words) -> member?
+
+linear search -> O(n) worst case
+binary search -> O(logn)
+
+hash table: two parts: 1. raw array 2. hasing function: hash("hello") -> index -> array
+
+hash("farcical")
+
+
