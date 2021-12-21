@@ -31,9 +31,6 @@ void FillRect(rect_t rect, u32 pixel_color, u32 *screen_pixels)
 			screen_pixels[(row + rect.y)*SCREEN_WIDTH + col + rect.x] = pixel_color;
 		}
 	}
-	
-		
-	
 }
 
 
