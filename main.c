@@ -23,7 +23,7 @@ typedef struct
 
 void FillRect(rect_t rect, u32 pixel_color, u32 *screen_pixels)
 {
-	assert(screen_pixels);
+	assert(screen_pixels); //making sure that pixels exist
 	for (int row = 0; row < rect.h; ++row)
 	{
 		for (int col = 0; col < rect.w; ++col)
@@ -43,7 +43,7 @@ void FillRect(rect_t rect, u32 pixel_color, u32 *screen_pixels)
 int main(int argc, char *argv[])
 {
 	SDL_Init(SDL_INIT_VIDEO);
-	SDL_Window *win = SDL_CreateWindow("Spell Checker", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT,0);
+	SDL_Window *win = SDL_CreateWindow("Spell Checker", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT,0);//not interested in the position of the window.
 	assert(win);
 
 	SDL_Renderer *renderer = SDL_CreateRenderer(win, 0, SDL_RENDERER_SOFTWARE);
@@ -75,7 +75,7 @@ int main(int argc, char *argv[])
 				break;
 			}
 
-			if (event.type != SDL_KEYDOWN)
+			if (event.type != SDL_KEYDOWN) //if user press down key -> exit
 			{
 				break;
 			}
@@ -83,13 +83,13 @@ int main(int argc, char *argv[])
 			SDL_Keycode code = event.key.keysym.sym;
 			switch (code)
 			{
-				case SDLK_ESCAPE:
+				case SDLK_ESCAPE: //exit on escape as well.
 					done = TRUE;
 					break;
 				default:
-					break;
+					break; //exit on every key.
 			}
-
+			//some magic functions to handle the window after user interaction
 			SDL_UpdateTexture(screen, NULL, screen_pixels, SCREEN_WIDTH * sizeof(u32));
 			SDL_RenderClear(renderer);
 			SDL_RenderCopy(renderer, screen, NULL, NULL);
