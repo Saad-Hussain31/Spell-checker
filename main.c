@@ -55,9 +55,16 @@ int main(int argc, char *argv[])
 	u32 *screen_pixels = (u32*) calloc(SCREEN_WIDTH * SCREEN_WIDTH , sizeof(u32));
 	assert(screen_pixels);
 
-	rect_t square = {0,0,30,30};
+	rect_t square = {0,0,30,30}; //start at origin 
+	square.x = (SCREEN_WIDTH-square.w)/2; //bringing square in the middle
+	square.y = (SCREEN_HEIGHT-square.h)/2;
 	u32 pixel_color = SDL_MapRGB(format, 0, 0, 255);
 	FillRect(square, pixel_color, screen_pixels);
+
+	BOOL pressed_up = FALSE;
+	BOOL pressed_down = FALSE;
+	BOOL pressed_left = FALSE;
+	BOOL pressed_right = FALSE;
 
 	// SDL_Delay(5000);
 	BOOL done = FALSE;
@@ -83,17 +90,58 @@ int main(int argc, char *argv[])
 				case SDLK_ESCAPE: //exit on escape as well.
 					done = TRUE;
 					break;
+				case SDLK_UP:
+					pressed_up = TRUE;
+					break;
+				case SDLK_DOWN:
+					pressed_down = TRUE;
+					break;
+				case SDLK_LEFT:
+					pressed_left = TRUE;
+					break;
+				case SDLK_RIGHT:
+					pressed_right = TRUE;
+					break;
+
 				default:
 					break; //exit on every key.
-			}
-			//some magic functions to handle the window after user interaction
-			SDL_UpdateTexture(screen, NULL, screen_pixels, SCREEN_WIDTH * sizeof(u32));
-			SDL_RenderClear(renderer);
-			SDL_RenderCopy(renderer, screen, NULL, NULL);
-			SDL_RenderPresent(renderer);
-			SDL_Delay(50);
+			}	
 
+		}	
 
+		memset(screen_pixels, 0 , SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(u32)); //flushing the array of pixels
+
+		if (pressed_up)
+		{
+			square.y -= 1;
 		}
+
+		if (pressed_down)
+		{
+			square.x += 1;
+		}
+
+		if(pressed_left)
+		{
+			square.x -= 1;
+		}
+		if(pressed_right)
+		{
+			square.x +=1;
+		}
+
+		FillRect(square,255, screen_pixels);
+
+
+
+		//some magic functions to handle the window after user interaction
+		SDL_UpdateTexture(screen, NULL, screen_pixels, SCREEN_WIDTH * sizeof(u32));
+		SDL_RenderClear(renderer);
+		SDL_RenderCopy(renderer, screen, NULL, NULL);
+		SDL_RenderPresent(renderer);
+		SDL_Delay(50);
+
+
+		
 	}
 }
