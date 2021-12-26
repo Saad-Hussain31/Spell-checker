@@ -4,7 +4,7 @@
 #define BOOL u32
 #define TRUE 1
 #define FALSE 0
-
+#define internal static
 
 #define SCREEN_WIDTH 1024
 #define SCREEN_HEIGHT 576
@@ -21,7 +21,7 @@ typedef struct
 	int h;
 } rect_t;
 
-void FillRect(rect_t rect, u32 pixel_color, u32 *screen_pixels)
+internal void FillRect(rect_t rect, u32 pixel_color, u32 *screen_pixels)
 {
 	assert(screen_pixels); //making sure that pixels exist
 	for (int row = 0; row < rect.h; ++row)
@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
 				break;
 			}
 
-			if (event.type != SDL_KEYDOWN) //if user press down key -> exit
+			if (event.type != SDL_KEYDOWN && event.type != SDL_KEYUP) //if user press down key -> exit
 			{
 				break;
 			}
@@ -88,28 +88,28 @@ int main(int argc, char *argv[])
 			switch (code)
 			{
 				case SDLK_ESCAPE: //exit on escape as well.
-					done = TRUE;
+					done = event.type == SDL_KEYDOWN;
 					break;
 				case SDLK_UP:
-					pressed_up = TRUE;
+					pressed_up = event.type == SDL_KEYDOWN;
 					break;
 				case SDLK_DOWN:
-					pressed_down = TRUE;
+					pressed_down = event.type == SDL_KEYDOWN;
 					break;
 				case SDLK_LEFT:
-					pressed_left = TRUE;
+					pressed_left = event.type == SDL_KEYDOWN;
 					break;
 				case SDLK_RIGHT:
-					pressed_right = TRUE;
+					pressed_right = event.type == SDL_KEYDOWN;
 					break;
 
 				default:
-					break; //exit on every key.
+					break; //exit on every other key.
 			}	
 
 		}	
 
-		memset(screen_pixels, 0 , SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(u32)); //flushing the array of pixels
+		memset(screen_pixels, 0 , SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(u32)); //flushing the array of previous screen_pixels
 
 		if (pressed_up)
 		{
@@ -130,7 +130,7 @@ int main(int argc, char *argv[])
 			square.x +=1;
 		}
 
-		FillRect(square,255, screen_pixels);
+		FillRect(square,255, screen_pixels); //updating the screen_pixels based on movement.
 
 
 

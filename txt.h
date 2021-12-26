@@ -1,0 +1,37 @@
+#include <SDL2/SDL.h>
+#include <SDL/SDL_image.h>
+
+
+#define BOOL u32
+#define TRUE 1
+#define FALSE 0
+#define internal static
+
+enum BitmapFont
+{
+    BITMAP_FONT_1,
+    BITMAP_FONT_2,
+    BITMAP_FONT_3,
+    BITMAP_FONT_4,
+    BITMAP_FONT_5,
+    BITMAP_FONT_6,
+    BITMAP_FONT_7,
+    BITMAP_FONT_8,
+    BITMAP_FONT_9,
+    BITMAP_FONT_10,
+    BITMAP_FONT_11,
+    BITMAP_FONT_12,
+    BITMAP_FONT_13,
+    BITMAP_FONT_14,
+    BITMAP_FONT_15,
+    BITMAP_FONT_16,
+    BITMAP_FONT_17,
+    BITMAP_FONT_18,
+    BITMAP_FONT_19,
+    BITMAP_FONT_20,
+    BITMAP_FONT_21,
+    BITMAP_FONT_22,
+    BITMAP_FONT_23,
+    BITMAP_FONT_24,
+    BITMAP_FONT_25  
+};
